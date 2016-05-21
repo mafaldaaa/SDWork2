@@ -29,10 +29,12 @@ public class ObjectFactory {
     private final static QName _GetPictureDataResponse_QNAME = new QName("http://server.tp1.sd/", "getPictureDataResponse");
     private final static QName _DeleteAlbumResponse_QNAME = new QName("http://server.tp1.sd/", "deleteAlbumResponse");
     private final static QName _CreateAlbumResponse_QNAME = new QName("http://server.tp1.sd/", "createAlbumResponse");
+    private final static QName _IsProxy_QNAME = new QName("http://server.tp1.sd/", "isProxy");
     private final static QName _Exception_QNAME = new QName("http://server.tp1.sd/", "Exception");
     private final static QName _UploudFileResponse_QNAME = new QName("http://server.tp1.sd/", "uploudFileResponse");
     private final static QName _DeletePicture_QNAME = new QName("http://server.tp1.sd/", "deletePicture");
     private final static QName _IOException_QNAME = new QName("http://server.tp1.sd/", "IOException");
+    private final static QName _IsProxyResponse_QNAME = new QName("http://server.tp1.sd/", "isProxyResponse");
     private final static QName _UploudFile_QNAME = new QName("http://server.tp1.sd/", "uploudFile");
     private final static QName _GetAlbunsResponse_QNAME = new QName("http://server.tp1.sd/", "getAlbunsResponse");
     private final static QName _GetPicturesResponse_QNAME = new QName("http://server.tp1.sd/", "getPicturesResponse");
@@ -42,8 +44,8 @@ public class ObjectFactory {
     private final static QName _GetPictures_QNAME = new QName("http://server.tp1.sd/", "getPictures");
     private final static QName _CreateAlbum_QNAME = new QName("http://server.tp1.sd/", "createAlbum");
     private final static QName _DeletePictureResponse_QNAME = new QName("http://server.tp1.sd/", "deletePictureResponse");
-    private final static QName _GetPictureDataResponseReturn_QNAME = new QName("", "return");
     private final static QName _UploudFileArg2_QNAME = new QName("", "arg2");
+    private final static QName _GetPictureDataResponseReturn_QNAME = new QName("", "return");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: sd.tp1.client.ws
@@ -106,6 +108,22 @@ public class ObjectFactory {
      */
     public IOException createIOException() {
         return new IOException();
+    }
+
+    /**
+     * Create an instance of {@link IsProxyResponse }
+     * 
+     */
+    public IsProxyResponse createIsProxyResponse() {
+        return new IsProxyResponse();
+    }
+
+    /**
+     * Create an instance of {@link IsProxy }
+     * 
+     */
+    public IsProxy createIsProxy() {
+        return new IsProxy();
     }
 
     /**
@@ -242,6 +260,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsProxy }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.tp1.sd/", name = "isProxy")
+    public JAXBElement<IsProxy> createIsProxy(IsProxy value) {
+        return new JAXBElement<IsProxy>(_IsProxy_QNAME, IsProxy.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}}
      * 
      */
@@ -275,6 +302,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server.tp1.sd/", name = "IOException")
     public JAXBElement<IOException> createIOException(IOException value) {
         return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsProxyResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.tp1.sd/", name = "isProxyResponse")
+    public JAXBElement<IsProxyResponse> createIsProxyResponse(IsProxyResponse value) {
+        return new JAXBElement<IsProxyResponse>(_IsProxyResponse_QNAME, IsProxyResponse.class, null, value);
     }
 
     /**
@@ -362,18 +398,18 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "return", scope = GetPictureDataResponse.class)
-    public JAXBElement<byte[]> createGetPictureDataResponseReturn(byte[] value) {
-        return new JAXBElement<byte[]>(_GetPictureDataResponseReturn_QNAME, byte[].class, GetPictureDataResponse.class, ((byte[]) value));
+    @XmlElementDecl(namespace = "", name = "arg2", scope = UploudFile.class)
+    public JAXBElement<byte[]> createUploudFileArg2(byte[] value) {
+        return new JAXBElement<byte[]>(_UploudFileArg2_QNAME, byte[].class, UploudFile.class, ((byte[]) value));
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "", name = "arg2", scope = UploudFile.class)
-    public JAXBElement<byte[]> createUploudFileArg2(byte[] value) {
-        return new JAXBElement<byte[]>(_UploudFileArg2_QNAME, byte[].class, UploudFile.class, ((byte[]) value));
+    @XmlElementDecl(namespace = "", name = "return", scope = GetPictureDataResponse.class)
+    public JAXBElement<byte[]> createGetPictureDataResponseReturn(byte[] value) {
+        return new JAXBElement<byte[]>(_GetPictureDataResponseReturn_QNAME, byte[].class, GetPictureDataResponse.class, ((byte[]) value));
     }
 
 }

@@ -19,11 +19,11 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.2
  * 
  */
-@WebService(name = "ContentServer", targetNamespace = "http://server.tp1.sd/")
+@WebService(name = "WSServer", targetNamespace = "http://server.tp1.sd/")
 @XmlSeeAlso({
     ObjectFactory.class
 })
-public interface ContentServer {
+public interface WSServer {
 
 
     /**
@@ -35,7 +35,7 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "isProxy", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.IsProxy")
     @ResponseWrapper(localName = "isProxyResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.IsProxyResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/isProxyRequest", output = "http://server.tp1.sd/ContentServer/isProxyResponse")
+    @Action(input = "http://server.tp1.sd/WSServer/isProxyRequest", output = "http://server.tp1.sd/WSServer/isProxyResponse")
     public boolean isProxy();
 
     /**
@@ -48,8 +48,8 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getAlbuns", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetAlbuns")
     @ResponseWrapper(localName = "getAlbunsResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetAlbunsResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/getAlbunsRequest", output = "http://server.tp1.sd/ContentServer/getAlbunsResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/getAlbuns/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/getAlbunsRequest", output = "http://server.tp1.sd/WSServer/getAlbunsResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/getAlbuns/Fault/Exception")
     })
     public List<String> getAlbuns()
         throws Exception_Exception
@@ -66,8 +66,8 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getPictures", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetPictures")
     @ResponseWrapper(localName = "getPicturesResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetPicturesResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/getPicturesRequest", output = "http://server.tp1.sd/ContentServer/getPicturesResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/getPictures/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/getPicturesRequest", output = "http://server.tp1.sd/WSServer/getPicturesResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/getPictures/Fault/Exception")
     })
     public List<String> getPictures(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -87,8 +87,8 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getPictureData", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetPictureData")
     @ResponseWrapper(localName = "getPictureDataResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.GetPictureDataResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/getPictureDataRequest", output = "http://server.tp1.sd/ContentServer/getPictureDataResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/getPictureData/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/getPictureDataRequest", output = "http://server.tp1.sd/WSServer/getPictureDataResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/getPictureData/Fault/Exception")
     })
     public byte[] getPictureData(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -106,8 +106,8 @@ public interface ContentServer {
     @WebMethod
     @RequestWrapper(localName = "createAlbum", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.CreateAlbum")
     @ResponseWrapper(localName = "createAlbumResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.CreateAlbumResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/createAlbumRequest", output = "http://server.tp1.sd/ContentServer/createAlbumResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/createAlbum/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/createAlbumRequest", output = "http://server.tp1.sd/WSServer/createAlbumResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/createAlbum/Fault/Exception")
     })
     public void createAlbum(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -123,8 +123,8 @@ public interface ContentServer {
     @WebMethod
     @RequestWrapper(localName = "deleteAlbum", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.DeleteAlbum")
     @ResponseWrapper(localName = "deleteAlbumResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.DeleteAlbumResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/deleteAlbumRequest", output = "http://server.tp1.sd/ContentServer/deleteAlbumResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/deleteAlbum/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/deleteAlbumRequest", output = "http://server.tp1.sd/WSServer/deleteAlbumResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/deleteAlbum/Fault/Exception")
     })
     public void deleteAlbum(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -142,8 +142,8 @@ public interface ContentServer {
     @WebMethod
     @RequestWrapper(localName = "uploudFile", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.UploudFile")
     @ResponseWrapper(localName = "uploudFileResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.UploudFileResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/uploudFileRequest", output = "http://server.tp1.sd/ContentServer/uploudFileResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://server.tp1.sd/ContentServer/uploudFile/Fault/IOException")
+    @Action(input = "http://server.tp1.sd/WSServer/uploudFileRequest", output = "http://server.tp1.sd/WSServer/uploudFileResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://server.tp1.sd/WSServer/uploudFile/Fault/IOException")
     })
     public void uploudFile(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -167,8 +167,8 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "deletePicture", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.DeletePicture")
     @ResponseWrapper(localName = "deletePictureResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.DeletePictureResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/deletePictureRequest", output = "http://server.tp1.sd/ContentServer/deletePictureResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/ContentServer/deletePicture/Fault/Exception")
+    @Action(input = "http://server.tp1.sd/WSServer/deletePictureRequest", output = "http://server.tp1.sd/WSServer/deletePictureResponse", fault = {
+        @FaultAction(className = Exception_Exception.class, value = "http://server.tp1.sd/WSServer/deletePicture/Fault/Exception")
     })
     public boolean deletePicture(
         @WebParam(name = "arg0", targetNamespace = "")
@@ -187,7 +187,7 @@ public interface ContentServer {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "pingMethod", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.PingMethod")
     @ResponseWrapper(localName = "pingMethodResponse", targetNamespace = "http://server.tp1.sd/", className = "sd.tp1.client.ws.PingMethodResponse")
-    @Action(input = "http://server.tp1.sd/ContentServer/pingMethodRequest", output = "http://server.tp1.sd/ContentServer/pingMethodResponse")
+    @Action(input = "http://server.tp1.sd/WSServer/pingMethodRequest", output = "http://server.tp1.sd/WSServer/pingMethodResponse")
     public boolean pingMethod();
 
 }

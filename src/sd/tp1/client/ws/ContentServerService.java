@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ContentServerService", targetNamespace = "http://server.tp1.sd/", wsdlLocation = "http://192.168.1.3:8080/server?wsdl")
+@WebServiceClient(name = "ContentServerService", targetNamespace = "http://server.tp1.sd/", wsdlLocation = "http://192.168.1.3:8081/serverproxy?wsdl")
 public class ContentServerService
     extends Service
 {
@@ -30,7 +30,7 @@ public class ContentServerService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://192.168.1.3:8080/server?wsdl");
+            url = new URL("http://192.168.1.3:8081/serverproxy?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
