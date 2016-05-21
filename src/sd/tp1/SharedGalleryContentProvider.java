@@ -478,6 +478,8 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 	@Override
 	public Album createAlbum(String name) {
 
+		
+		
 		for(ContentServer s: serversProxy.values()){
 			try {
 				s.createAlbum(name);
