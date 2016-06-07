@@ -34,9 +34,9 @@ import sd.tp1.client.ws.WSServer;
 public class SharedGalleryContentProvider implements GalleryContentProvider {
 
 	// COMANDOS
-	// WS: java -Djava.net.preferIPv4Stack=true -classpath $JARLASSPATH sd.tp1.server.WSServer /Users/Mafalda/Documents/teste 192.168.1.3 8000 serverws
-	// Proxy: java -Djava.net.preferIPv4Stack=true -classpath $JARLASS sd.tp1.server.ContentServer ola 192.168.1.3 9001 serverproxy
-	///Users/Mafalda/Documents/workspace/SDTP2/libJar
+	// WS: java -Djava.net.preferIPv4Stack=true -classpath $JAR_CLASSPATH sd.tp1.server.WSServer /Users/Mafalda/Documents/workspace/SDTP2/teste 10.22.104.21 8000 serverws
+	// Proxy: java -Djava.net.preferIPv4Stack=true -classpath $JAR_CLASS sd.tp1.server.ContentServer ola 10.22.104.21 9001 serverproxy
+	//Users/Mafalda/Documents/workspace/SDTP2/libJar
 	
 	Gui gui;
 	public Map<String,WSServer> serversWS; //Guarda dos servidores do tipo  WSServer
@@ -329,6 +329,7 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 					}
 					serverAlbunsWS.put(serverws,album);	
 					replicationsWS(serverws);
+					System.out.println("bu");
 				}
 				else if(tmp[1].equals("proxy")){
 					System.err.println("Connecting to:" + URL );
