@@ -31,6 +31,7 @@ public class ProxyServer
 
 	}
 	
+	/** Devolve albuns do imgur*/
 	public List<String> getAlbuns(OAuth2AccessToken accessToken, OAuth20Service service) throws ParseException{
 
 		List<String> albunsList= new LinkedList<String>();
@@ -56,6 +57,7 @@ public class ProxyServer
 		return albunsList;
 	}
 
+	/**Devolve imagens de um album do imgur*/
 	public List<String> getPictures(OAuth2AccessToken accessToken, OAuth20Service service, String album ) throws ParseException{ 
 
 		List<String> pictures = new LinkedList<String>();
@@ -91,6 +93,7 @@ public class ProxyServer
 		return pictures;
 	}
 
+	/**Devolve o data de uma imagem */
 	public byte[] getPictureData(OAuth2AccessToken accessToken, OAuth20Service service, String album,String pic) throws ParseException, IOException {
 
 		byte[] dataPic;
@@ -133,6 +136,7 @@ public class ProxyServer
 		return null;
 	}
 
+	/**Remove uma imagem de um album do imgur*/
 	public boolean deletePicture(OAuth2AccessToken accessToken, OAuth20Service service, String album, String pic) throws ParseException {
 		
 		OAuthRequest albumsReq = new OAuthRequest(Verb.GET, "https://api.imgur.com/3/account/muffinv/albums/ids", service);
@@ -178,6 +182,7 @@ public class ProxyServer
 		return false;
 	}
 
+	/**Faz uploud de uma imagem para um album do imgur*/
 	public void uploudPicture(OAuth2AccessToken accessToken, OAuth20Service service, String album, String pic, byte[] dataImage) throws ParseException {
 
 		OAuthRequest albumsReq = new OAuthRequest(Verb.GET, "https://api.imgur.com/3/account/muffinv/albums/ids", service);
@@ -212,6 +217,7 @@ public class ProxyServer
 		}
 	}
 
+	/**Faz delete de um album do imgur*/
 	public void deleteAlbum(OAuth2AccessToken accessToken, OAuth20Service service, String name) throws ParseException {
 
 		OAuthRequest albumsReq = new OAuthRequest(Verb.GET, "https://api.imgur.com/3/account/muffinv/albums/ids", service);
@@ -241,6 +247,7 @@ public class ProxyServer
 		}	
 	}
 	
+	/**Faz create de um album no imgur*/
 	public void createAlbum(OAuth2AccessToken accessToken, OAuth20Service service, String name) throws ParseException{
 		OAuthRequest albumsReq = new OAuthRequest(Verb.POST, "https://api.imgur.com/3/album/{title}", service);
 		service.signRequest(accessToken, albumsReq);

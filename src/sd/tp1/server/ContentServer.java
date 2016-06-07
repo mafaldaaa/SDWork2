@@ -35,11 +35,12 @@ import sd.tp1.proxy.ProxyServer;
 @WebService
 public class ContentServer {
 
-	private static File basePath;
+	//Proxy variables
 	private static OAuth20Service service;
 	private static OAuth2AccessToken accessToken;
 	private ProxyServer proxy;
 
+	//SSL variables
 	static final File KEYSTORE = new File("./server.jks");
 	static final char[] JKS_PASSWORD = "changeit".toCharArray();
 	static final char[] KEY_PASSWORD = "changeit".toCharArray();
@@ -53,6 +54,7 @@ public class ContentServer {
 		return true;
 	}
 	
+	/**Devolve albuns do imgur*/
 	@WebMethod
 	public String[] getAlbuns() throws Exception {
 		
@@ -63,6 +65,7 @@ public class ContentServer {
 		return albuns;
 	}
 
+	/**Devolve imagens de um album do imgur*/
 	@WebMethod
 	public String[] getPictures(String path) throws Exception {
 		List<String> proxyPictures = proxy.getPictures(accessToken, service, path);
@@ -72,21 +75,25 @@ public class ContentServer {
 		return pictures;
 	}
 
+	/**Devolve o data de uma imagem */
 	@WebMethod
 	public byte[] getPictureData(String album, String picture) throws Exception {
 		return proxy.getPictureData(accessToken, service, album, picture);
 	}
 
+	/**Faz create de um album no imgur*/
 	@WebMethod
 	public void createAlbum(String name) throws Exception {
 		proxy.createAlbum(accessToken, service, name);
 	}
 
+	/**Faz delete de um album do imgur*/
 	@WebMethod
 	public void deleteAlbum(String album) throws Exception {
 		proxy.deleteAlbum(accessToken, service, album);
 	}
 
+	/**Faz uploud de uma imagem para um album do imgur*/
 	@WebMethod
 	public void uploudFile(String album, String pic, byte[] data) throws IOException {
 		try {
@@ -96,6 +103,7 @@ public class ContentServer {
 		}
 	}
 
+	/**Remove uma imagem de um album do imgur*/
 	@WebMethod
 	public boolean deletePicture(String album, String picture) throws Exception {
 		return proxy.deletePicture(accessToken, service, album, picture);
@@ -105,12 +113,13 @@ public class ContentServer {
 		return true;
 	}
 
+	/** Estabelece a conecção ao imgur*/
 	public static void conect() {
 
-		// Substituir pela API key atribuida
+		// API key atribuida
 		final String apiKey = "4b5822842d6f342";
 		;
-		// Substituir pelo API secret atribuido
+		// API secret atribuido
 		final String apiSecret = "88558045a3bf71fe45866b58bb04c097bebeb129";
 
 		service = new ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret).build(ImgurApi.instance());
@@ -128,6 +137,7 @@ public class ContentServer {
 		// Trade the Request Token and Verifier for the Access Token
 		System.out.println("A obter o Access Token!");
 		accessToken = service.getAccessToken(code);
+		System.out.println("Ligação Estabelecida");
 	}
 
 	public static void main(String args[]) throws Exception {
@@ -163,8 +173,8 @@ public class ContentServer {
 		ep.publish(httpContext);
 		
 		// Só para quando WS import descomentar wsimport -keep -s src -d bin -p sd.tp1.client.ws http://serverAddress/server?wsdl
-		String url2 = URL.replace("https", "http").replace("" + Integer.parseInt(args[2]), "" + (Integer.parseInt(args[2])+1));
-		Endpoint.publish(url2, impl);
+		//String url2 = URL.replace("https", "http").replace("" + Integer.parseInt(args[2]), "" + (Integer.parseInt(args[2])+1));
+		//Endpoint.publish(url2, impl);
 		
 		System.err.println("FileServer started@ " + URL);
 		conect();

@@ -33,18 +33,20 @@ import sd.tp1.client.ws.WSServer;
 
 public class SharedGalleryContentProvider implements GalleryContentProvider {
 
-	//comandos
-	// ServidorRest: java -Djava.net.preferIPv4Stack=true -cp Jersey-bundle.jar sd.tp1.server.RestServer 10.0.25.153
-	// WS: java -Djava.net.preferIPv4Stack=true sd.tp1.server.ContentServer /Users/Mafalda/Documents/SharedServerFiles 10.0.25.153
-	// Client: eclipse
-	// WSIMPORT: wsimport -keep -s src -d bin -p sd.tp1.client.ws http://localhost:8080/FileServer?wsdl
-
+	// COMANDOS
+	// WS: java -Djava.net.preferIPv4Stack=true -classpath $JARLASSPATH sd.tp1.server.WSServer /Users/Mafalda/Documents/teste 192.168.1.3 8000 serverws
+	// Proxy: java -Djava.net.preferIPv4Stack=true -classpath $JARLASS sd.tp1.server.ContentServer ola 192.168.1.3 9001 serverproxy
+	///Users/Mafalda/Documents/workspace/SDTP2/libJar
+	
 	Gui gui;
-	public Map<String,WSServer> serversWS;
-	public Map<String,ContentServer> serversProxy;
+	public Map<String,WSServer> serversWS; //Guarda dos servidores do tipo  WSServer
+	public Map<String,ContentServer> serversProxy; //Guarda os servidores do tipo ContentServer
 	public Map<WSServer,List<String>> serverAlbunsWS; //Guarda os albuns dos servidores vindos do WS
 	public Map<ContentServer,List<String>> serverAlbunsproxy;//Guardas os albuns dos servidores vindos do Proxy.
 
+	/**
+	 * Realiza a replicação para os servidores do tipo WSServer
+	 */
 	public void replicationsWS(WSServer server) throws Exception_Exception, IOException_Exception{
 
 		//Assumindo que o multicast so detecta um servidor de cada vez
@@ -110,6 +112,9 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		}
 	}
 	
+	/**
+	 * Realiza a replicação para os servidores do tipo ContentServer (proxy)
+	 */
 	public void replicationProxys(ContentServer server) throws Exception_Exception, IOException_Exception{
 
 		//Assumindo que o multicast so detecta um servidor de cada vez
@@ -256,6 +261,9 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		}
 	}
 
+	/**
+	 * Realiza o multicast
+	 */
 	public void multicast() throws IOException{
 		
 		int port = 9000;
@@ -431,7 +439,6 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		return lst;
 	}
 
-
 	/**
 	 * Returns the contents of picture in album. On error this method should
 	 * return null.
@@ -471,35 +478,35 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		return null;
 	}
 
-
 	/**
 	 * Create a new album. On error this method should return null.
 	 */
 	@Override
 	public Album createAlbum(String name) {
 
-		
-		
 		for(ContentServer s: serversProxy.values()){
 			try {
-				s.createAlbum(name);
+				if(!serverAlbunsproxy.get(s).contains(name))
+					s.createAlbum(name);
 			} catch (Exception_Exception e) {
 				return null;
 			}
 			serverAlbunsproxy.get(s).add(name);
 		}
+		gui.updateAlbums();
 		for(WSServer s: serversWS.values()){
 			try {
-				s.createAlbum(name);
+				if(!serverAlbunsWS.get(s).contains(name))
+					s.createAlbum(name);
 			} catch (Exception_Exception e) {
 				return null;
 			}
 			serverAlbunsWS.get(s).add(name);
 		}
 		gui.updateAlbums();
+		
 		return new SharedAlbum(name);
 	}
-
 
 	/**
 	 * Delete an existing album.
@@ -510,22 +517,21 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		String name=album.getName();
 		for(ContentServer s: serversProxy.values()){
 			try {
-				s.deleteAlbum(name);
-				serverAlbunsproxy.get(s).remove(name);
+				s.deleteAlbum(name);	
 			}catch (Exception_Exception e) {
 			}
+			serverAlbunsproxy.get(s).remove(name);
 		}
-
+		
 		for(WSServer s: serversWS.values()){
 			try {
 				s.deleteAlbum(name);
-				serverAlbunsWS.get(s).remove(name);
 			}catch (Exception_Exception e) {
 			}
+			serverAlbunsWS.get(s).remove(name);
 		}
 		gui.updateAlbums();
 	}
-
 
 	/**
 	 * Add a new picture to an album. On error this method should return null.
@@ -547,7 +553,7 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 				}
 			}
 		}
-
+		gui.updateAlbums();
 		for(ContentServer s:serversProxy.values()){
 			List<String> albuns= serverAlbunsproxy.get(s);
 			for(String a: albuns){
@@ -564,7 +570,6 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		return new SharedPicture(name);
 	}
 
-
 	/**
 	 * Delete a picture from an album. On error this method should return false.
 	 */
@@ -573,6 +578,7 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 
 		String name=album.getName();
 		String namep= picture.getName();
+		boolean res=false;
 
 		for(WSServer s: serversWS.values()){
 			List<String> albuns=serverAlbunsWS.get(s);
@@ -580,32 +586,32 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 				if(a.equals(name)){
 					try{
 						s.deletePicture(name, namep);
-						gui.updateAlbums();
-						return true;
+						
+						res= true;
 					} catch (Exception e) {
-						return false;
+						res= false;
 					}
 				}
 			}
 		}
-
+		gui.updateAlbums();
 		for(ContentServer s: serversProxy.values()){
 			List<String> albuns=serverAlbunsproxy.get(s);
 			for(String a: albuns){
 				if(a.equals(name)){
 					try{
 						s.deletePicture(name, namep);
-						gui.updateAlbums();
-						return true;
+						
+						res= true;
 					} catch (Exception e) {
-						return false;
+						res= false;
 					}
 				}
 			}
 		}
-		return false;
+		gui.updateAlbums();
+		return res;
 	}
-
 
 	/**
 	 * Represents a shared album.
@@ -622,7 +628,6 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 			return name;
 		}
 	}
-
 
 	/**
 	 * Represents a shared picture.
@@ -653,6 +658,7 @@ public class SharedGalleryContentProvider implements GalleryContentProvider {
 		}
 	}
 
+	//SSL Methods
 	static public class InsecureHostnameVerifier implements HostnameVerifier {
 		@Override
 		public boolean verify(String hostname, SSLSession session) {

@@ -34,7 +34,10 @@ import javax.net.ssl.X509TrustManager;
 @WebService
 public class WSServer {
 
+	//WS Variables
 	private static File basePath;
+
+	//SSL variables
 	static final File KEYSTORE = new File("./server.jks");
 	static final char[] JKS_PASSWORD = "changeit".toCharArray();
 	static final char[] KEY_PASSWORD = "changeit".toCharArray();
@@ -42,7 +45,10 @@ public class WSServer {
 	public WSServer() {
 		this(".");
 	}
-
+	
+	/**
+	 * @param pathname - directoria.
+	 */
 	protected WSServer(String pathname) {
 		super();
 		basePath = new File(pathname);
@@ -52,6 +58,7 @@ public class WSServer {
 		return false;
 	}
 
+	/** Devolves os Albuns da directoria*/
 	@WebMethod
 	public String[] getAlbuns() throws Exception {
 
@@ -65,10 +72,11 @@ public class WSServer {
 			throw new Exception("File not found");
 	}
 
+	/** Devolve as imagens do Album*/
 	@WebMethod
-	public String[] getPictures(String path) throws Exception {
+	public String[] getPictures(String album) throws Exception {
 
-		File f = new File(basePath, path);
+		File f = new File(basePath, album);
 		if (f.exists()) {
 			if (f.isDirectory()) {
 				File[] files = f.listFiles(new FilenameFilter() {
@@ -88,6 +96,7 @@ public class WSServer {
 			throw new Exception("File not found");
 	}
 
+	/**Devolve o data da imagem*/
 	@WebMethod
 	public byte[] getPictureData(String album, String picture) throws Exception {
 
@@ -103,6 +112,7 @@ public class WSServer {
 			throw new Exception("File not found");
 	}
 
+	/**Cria um album na directoria*/
 	@WebMethod
 	public void createAlbum(String name) throws Exception {
 
@@ -114,6 +124,7 @@ public class WSServer {
 			throw new Exception("Album already exists");
 	}
 
+	/**Apaga o album da directoria*/
 	@WebMethod
 	public void deleteAlbum(String album) throws Exception {
 
@@ -127,6 +138,7 @@ public class WSServer {
 			throw new Exception("Album not exists");
 	}
 
+	/**Uploud uma imagem para o album da directoria*/
 	@WebMethod
 	public void uploudFile(String album, String pic, byte[] data) throws IOException {
 
@@ -136,6 +148,7 @@ public class WSServer {
 		output.close();
 	}
 
+	/**Apaga a imagem do album da directoria*/
 	@WebMethod
 	public boolean deletePicture(String album, String picture) throws Exception {
 
@@ -189,8 +202,8 @@ public class WSServer {
 
 
 		// Só para quando WS import descomentar wsimport -keep -s src -d bin -p sd.tp1.client.ws http://serverAddress/server?wsdl
-		String url2 = URL.replace("https", "http").replace("" + Integer.parseInt(args[2]), "" + (Integer.parseInt(args[2])+1));
-		Endpoint.publish(url2, impl);
+		//String url2 = URL.replace("https", "http").replace("" + Integer.parseInt(args[2]), "" + (Integer.parseInt(args[2])+1));
+		//Endpoint.publish(url2, impl);
 
 		System.err.println("FileServer started@ " + URL);
 
@@ -204,8 +217,6 @@ public class WSServer {
 		while (true) {
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			socket.receive(packet);
-
-			/* Responder ao cliente */
 			URL = URL + "!ws";
 			byte[] data = URL.getBytes();
 			DatagramPacket datagram = new DatagramPacket(data, data.length);
